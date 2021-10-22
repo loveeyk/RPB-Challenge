@@ -35,14 +35,18 @@ export default class CountryRegionTeaser extends Vue {
 @import "src/assets/colors.scss";
 
 .teaser {
+  padding-left: 21px;
   &__heading {
     display: flex;
     align-items: baseline;
 
+    
+
     .heading{
       font-family: Quicksand;
-      font-weight: bold;
+      font-weight: bolder;
       color: $text-color1;
+      font-size: 24px;
 
     }
 
@@ -52,12 +56,26 @@ export default class CountryRegionTeaser extends Vue {
       color: $text-color1;
       text-align: right;
       margin-left: 10%;
+      font-size: 16px;
     }
   }
+  &__slider::before {
+        content: "";
+    position: absolute;
+    background: linear-gradient(273deg, #ffffff, #ffffff00);
+    height: 222px;
+    right: 0px;
+    z-index: 1;
+    width: 23pxnp;
+  }
+    &__slider{
+      position: relative;
+    }
 
   &__subheading{
       color: $text-color2;
       font-family: Open Sans;
+      font-size: 16px;
     }
 }
 </style>

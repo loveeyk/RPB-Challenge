@@ -37,21 +37,34 @@ export default class Slider extends Vue {
 .slider {
   display: flex;
   overflow-y: hidden;
+  position: relative;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &__link {
     text-decoration: none;
   }
 
   &__wrapper {
-    border: 1px solid $border-color;
-    box-shadow: -1pt 1pt 0 0 $border-color;
-    border-radius: 10px;
-    margin: 1rem;
+    border: 2px solid transparent;
+    box-shadow: -2px 2px 0 $border-color;
+    border-radius: 25px;
+    margin: 0 19px;
+    height: 222px;
 
+    &:first-child {
+      margin-left: 0;
+    }
     img {
       border: 1px solid $border-color;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
+      width: 287px;
+      height: 177px;
     }
   }
 
