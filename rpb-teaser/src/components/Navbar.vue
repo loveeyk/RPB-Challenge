@@ -1,7 +1,13 @@
 <template>
   <ul class="navbar">
     <li>
-      <router-link to="/home" class="navbar-link">Restplatzboerse</router-link>
+      <router-link to="/home" class="navbar-link"
+        ><img
+          src="../assets/img/logo.svg"
+          alt="flight_logo"
+          class="logo"
+        />Restplatzboerse</router-link
+      >
     </li>
     <li>
       <router-link to="/reiseziele" class="navbar-link">Reiseziele</router-link>
@@ -16,6 +22,8 @@ export default class Navbar extends Vue {}
 </script>
 
 <style scoped lang="scss">
+@import "src/assets/global.scss";
+@import "src/assets/colors.scss";
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -23,12 +31,11 @@ export default class Navbar extends Vue {}
   padding: 1rem;
   border-bottom: 1px solid rgba(112, 109, 109, 0.445);
   box-shadow: 0 0.2rem 0.5rem rgb(51 51 51 / 30%);
-  width: 100%;
-  li {
-    margin: 1rem;
-  }
+  width: 100vw;
+  font-family: Quicksand;
+
   .navbar-link {
-    color: black;
+    color: $text-color1;
     text-decoration: none;
   }
 }
