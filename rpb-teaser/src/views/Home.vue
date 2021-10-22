@@ -1,17 +1,22 @@
 <template>
   <div class="home">
-    <Teaser />
+    <CountryRegionTeaser />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Teaser from "../components/Teaser.vue";
+import CountryRegionTeaser from "../components/CountryRegionTeaser.vue";
 
 @Component({
   components: {
-    Teaser,
+    CountryRegionTeaser,
   },
 })
 export default class Home extends Vue {}
 </script>
+<style scoped lang="scss">
+.home {
+  margin: 2rem;
+}
+</style>
