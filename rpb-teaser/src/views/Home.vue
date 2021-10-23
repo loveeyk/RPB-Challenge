@@ -15,7 +15,4 @@ import CountryRegionTeaser from "../components/CountryRegionTeaser.vue";
 })
 export default class Home extends Vue {}
 </script>
-<style scoped lang="scss">
-.home {
-}
-</style>
+<style scoped lang="scss"></style>
