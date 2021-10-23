@@ -1,4 +1,4 @@
-<template>
+<template><div>
   <div class="teaser">
     <div class="teaser__heading">
       <h1 class="heading">Länder, Regionen, Orte</h1>
@@ -6,10 +6,11 @@
     </div>
 
     <h2 class="teaser__subheading">Lorem Ipsum Länder, Regionen, Orte</h2>
-    <div class="teaser__slider">
-      <Slider :traveloptions="pictures" />
-    </div>
+    
   </div>
+  <div class="teaser__slider">
+      <Slider :traveloptions="pictures" />
+    </div></div>
 </template>
 
 <script lang="ts">
@@ -35,12 +36,12 @@ export default class CountryRegionTeaser extends Vue {
 @import "src/assets/colors.scss";
 
 .teaser {
-  padding-left: 21px;
+  padding-left: 23px;
+  margin-bottom: 25px;
+
   &__heading {
     display: flex;
     align-items: baseline;
-
-    
 
     .heading{
       font-family: Quicksand;
@@ -66,10 +67,11 @@ export default class CountryRegionTeaser extends Vue {
     height: 222px;
     right: 0px;
     z-index: 1;
-    width: 23pxnp;
+    width: 23px;
   }
     &__slider{
       position: relative;
+      padding-left: 23px;
     }
 
   &__subheading{
