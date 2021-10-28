@@ -1,8 +1,13 @@
-$accent-1: #FFFFFF;
+$accent-1: #ffffff;
 
-$text-color1: #16828F;
+$text-color1: #16828f;
 $text-color2: #525252;
-$text-color3: #A11A75;
+$text-color3: #a11a75;
 
-$border-color: #D9E15F;
+$border-color: #d9e15f;
 
+.highlight {
+  color: $text-color1;
+  position: relative;
+  z-index: 2;
+}
