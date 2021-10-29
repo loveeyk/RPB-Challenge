@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container">
   <div class="teaser">
     <div class="teaser__heading">
       <h1 class="heading">Länder, Regionen, Orte</h1>
@@ -33,6 +33,7 @@ export default class CountryRegionTeaser extends Vue {
 <style scoped lang="scss">
 @import "src/assets/global.scss";
 @import "src/assets/colors.scss";
+.container{
 
 .teaser {
   padding-left: 23px;
@@ -62,17 +63,14 @@ export default class CountryRegionTeaser extends Vue {
   &__slider::before {
     content: "";
     position: fixed;
-    background: linear-gradient(273deg, #ffffff, #ffffff00);
-    height: 222px;
+    background: linear-gradient(270deg, #ffffff, #ffffff00);
+    height: 100vh;
     right: 0px;
     z-index: 1;
     width: 23px;
-    top: 28%;
   }
     &__slider{
-      padding-left: 1.4rem;
       position: relative;
-      overflow-y: hidden;
     }
      
 
@@ -81,5 +79,6 @@ export default class CountryRegionTeaser extends Vue {
       font-family: 'Open Sans';
       font-size: 1rem;
     }
+}
 }
 </style>
