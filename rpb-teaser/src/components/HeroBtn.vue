@@ -1,13 +1,13 @@
 <template>
-  <button class="hero-btn">
+  <router-link class="hero-btn" :to="to">
     <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
       <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line"></polyline>
       <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line"></polyline>
     </svg>
-    <span>
-      <router-link :to="to" class="link">{{ text }}</router-link>
+    <span class="link">
+      {{ text }}
     </span>
-  </button>
+  </router-link>
 </template>
 
 <script lang="ts">
@@ -24,12 +24,6 @@ export default {
 <style lang="scss" scoped>
 @import "src/assets/global.scss";
 @import "src/assets/colors.scss";
-.link {
-  position: relative;
-  z-index: 2;
-  color: $text-color1;
-  text-decoration: none;
-}
 
 .hero-btn {
   cursor: pointer;
@@ -40,17 +34,26 @@ export default {
   position: relative;
   z-index: 2;
   border-radius: 4rem;
+  text-decoration: none;
   margin-left: -0.9rem;
+  font-family: Quicksand;
 
   span {
     position: relative;
     z-index: 2;
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: 18px;
     font-weight: 100;
     transition: 0.3s all ease-in-out;
     top: 77%;
     left: 4%;
+
+    .link {
+      position: relative;
+      z-index: 2;
+      color: white;
+      text-decoration: none;
+    }
   }
 
   svg {
@@ -59,12 +62,16 @@ export default {
     left: 0;
     top: 0;
     fill: none;
-    stroke: #47eed8;
+    stroke: #25bbcc;
     stroke-dasharray: 150 480;
     stroke-dashoffset: 150;
     transition: 0.5s all ease-in-out;
-    background: $accent-1;
+    background: #16838fc4;
     border-radius: 10px;
+
+    &:hover {
+      background: $text-color1;
+    }
   }
 }
 
@@ -75,6 +82,6 @@ export default {
   stroke-dashoffset: -480;
 }
 .hero-btn:hover span {
-  color: #47eed8;
+  color: $text-color1-highlightspread;
 }
 </style>

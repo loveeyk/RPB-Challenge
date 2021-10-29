@@ -79,7 +79,7 @@ export default class Home extends Vue {}
     }
     &::after {
       content: "";
-      background: #ffffffad;
+      background: #ffffff85;
       position: absolute;
       top: 0;
       left: 0;
