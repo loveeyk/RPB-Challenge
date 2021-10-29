@@ -19,4 +19,8 @@ export default class Reiseziele extends Vue {
   traveloptions = [...traveloptions];
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.reiseziele {
+  overflow-x: hidden;
+}
+</style>
