@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
-    <router-view />
+    <router-view class="wrapper" />
   </div>
 </template>
 
@@ -21,5 +21,9 @@ export default class App extends Vue {}
 @import "src/assets/global.scss";
 #app {
   overflow-y: hidden;
+
+  .wrapper {
+    margin-top: 68px;
+  }
 }
 </style>
