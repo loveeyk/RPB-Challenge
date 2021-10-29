@@ -28,6 +28,10 @@ npm run build
 ```
 npm run lint
 ```
+### Vue Carousel Plugin
+```
+npm install vue-carousel-3d
+```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
