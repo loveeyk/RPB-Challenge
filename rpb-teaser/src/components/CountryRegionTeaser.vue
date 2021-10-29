@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="countryRegionTeaser">
   <div class="teaser">
     <div class="teaser__heading">
       <h1 class="heading">Länder, Regionen, Orte</h1>
@@ -33,7 +33,7 @@ export default class CountryRegionTeaser extends Vue {
 <style scoped lang="scss">
 @import "src/assets/global.scss";
 @import "src/assets/colors.scss";
-.container{
+.countryRegionTeaser{
 
 .teaser {
   padding-left: 23px;
