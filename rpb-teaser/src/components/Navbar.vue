@@ -33,12 +33,20 @@ export default class Navbar extends Vue {}
   box-shadow: 0 0.2rem 0.5rem rgb(51 51 51 / 30%);
   width: 100%;
   font-family: Quicksand;
+  position: fixed;
+  background: $accent-1;
 
   &-list {
     margin-top: 0.5rem;
   }
 
   &-link {
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      color: $text-color1-highlight;
+      text-shadow: 0px 0px 1px $text-color1-highlightspread;
+    }
     color: $text-color1;
     text-decoration: none;
   }
