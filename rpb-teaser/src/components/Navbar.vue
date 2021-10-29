@@ -35,6 +35,7 @@ export default class Navbar extends Vue {}
   font-family: Quicksand;
   position: fixed;
   background: $accent-1;
+  z-index: 10000;
 
   &-list {
     margin-top: 0.5rem;
