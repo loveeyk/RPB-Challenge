@@ -1,13 +1,16 @@
 <template>
   <div class="slider">
-    <div v-if="isMobile()">
+    <div v-if="isMobile">
       <carousel-3d
-        :autoplay="false"
         :border="0"
         :height="222"
         :width="287"
-        :space="305"
         :disable3d="true"
+        :space="300"
+        :clickable="false"
+        :controls-visible="true"
+        :display="pictures.length"
+        :perspective="50"
       >
         <slide
           v-for="(slide, i) in pictures"
@@ -15,29 +18,27 @@
           :key="i"
           class="slider__wrapper"
         >
-          <template :slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
-            <Frame
-              :isCurrent="isCurrent"
-              :leftIndex="leftIndex"
-              :rightIndex="rightIndex"
-              :index="index"
-              :slide="slide"
-            ></Frame>
+          <template
+            :slot-scope="`${(index, isCurrent, leftIndex, rightIndex)}`"
+          >
+            <Slideinner :slide="slide"></Slideinner>
           </template>
         </slide>
       </carousel-3d>
     </div>
     <div v-else class="grid">
       <div v-for="(slide, i) in pictures" :index="i" :key="i" class="grid-item">
-        <img :src="slide.image" class="grid__image" :alt="slide.image" />
+        <a :href="slide.link" class="link">
+          <img :src="slide.image" class="grid__image" :alt="slide.image" />
 
-        <div class="grid__description">
-          <span class="countryName">{{ slide.text }}</span>
-          <div v-if="slide.price > 0">
-            <span class="textcolor">ab</span>
-            <span class="pricecolor">€{{ slide.price }}</span>
-          </div>
-        </div>
+          <div class="grid__description">
+            <span class="countryName">{{ slide.text }}</span>
+            <div v-if="slide.price > 0">
+              <span class="textcolor">ab</span>
+              <span class="pricecolor">€{{ slide.price }}</span>
+            </div>
+          </div></a
+        >
       </div>
     </div>
   </div>
@@ -46,9 +47,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Carousel3d, Slide } from "vue-carousel-3d";
-
 import { traveloptions } from "../travel-options";
-import Frame from "./Frame.vue";
+import Slideinner from "./Slideinner.vue";
 
 Vue.use(Carousel3d);
 
@@ -56,20 +56,26 @@ Vue.use(Carousel3d);
   components: {
     Slide,
     Carousel3d,
-    Frame,
+    Slideinner,
   },
 })
 export default class Slider extends Vue {
   pictures: { text: string; price: number; image: string; link: string }[] = [
     ...traveloptions,
   ];
+  isMobile = false;
 
-  isMobile() {
-    if (screen.width <= 769) {
-      return true;
-    } else {
-      return false;
-    }
+  setIsMobile() {
+    console.log("setIsMobile() wird ausgeführt" + window.innerWidth);
+    this.isMobile = window.innerWidth < 769;
+  }
+  mounted() {
+    this.setIsMobile();
+    window.addEventListener("resize", this.setIsMobile);
+  }
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.setIsMobile);
   }
 }
 </script>
@@ -79,6 +85,11 @@ export default class Slider extends Vue {
 .carousel-3d-container {
   overflow: unset !important;
 }
+
+.carousel-3d-controls .next {
+  z-index: 10;
+}
+
 .slider {
   height: 100vh;
 
@@ -93,10 +104,11 @@ export default class Slider extends Vue {
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1fr;
     grid-gap: 23px;
     width: 287px;
+    padding-left: 1.4rem;
 
     &__image {
       width: 287px;
@@ -138,6 +150,10 @@ export default class Slider extends Vue {
       box-shadow: -2pt 2pt $border-color;
       border-radius: 10px;
       background: $accent-1;
+
+      .link {
+        text-decoration: none;
+      }
     }
   }
 }
