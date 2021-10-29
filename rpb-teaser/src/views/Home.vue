@@ -37,6 +37,7 @@ export default class Home extends Vue {}
   flex-direction: column;
   justify-content: center;
   height: 100vh;
+  margin-top: 0 !important;
 
   @media only screen and (min-width: 320px) and (max-width: 480px) {
     background: url("../assets/img/home-bg.jpg") no-repeat center center fixed;
@@ -79,14 +80,15 @@ export default class Home extends Vue {}
     }
     &::after {
       content: "";
-      background: #ffffff85;
+      background: #ffffffb5;
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
       width: 100%;
       -webkit-backdrop-filter: blur(5px);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(1px);
+      border: 1px solid #ffffff8a;
     }
   }
 }
