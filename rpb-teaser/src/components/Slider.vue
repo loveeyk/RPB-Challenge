@@ -1,129 +1,160 @@
 <template>
-  <div>
-    <div class="slider">
-      <div
-        class="slider__wrapper"
-        v-for="(option, i) in pictures"
-        :key="i"
-        v-bind="traveloptions"
+  <div class="slider">
+    <div v-if="isMobile">
+      <carousel-3d
+        :border="0"
+        :height="222"
+        :width="287"
+        :disable3d="true"
+        :space="300"
+        :clickable="false"
+        :controls-visible="true"
+        :display="pictures.length"
+        :perspective="50"
       >
-        <a :href="option.link" class="slider__link">
-          <img
-            :src="option.image"
-            :alt="`slider-image-${i}`"
-            :id="`slider-image-${i}`"
-          />
-          <div class="slider__description">
-            <span class="slider__text">{{ option.text }}</span>
-            <span class="slider__price">ab {{ option.price }}</span>
+        <slide
+          v-for="(slide, i) in pictures"
+          :index="i"
+          :key="i"
+          class="slider__wrapper"
+        >
+          <template
+            :slot-scope="`${(index, isCurrent, leftIndex, rightIndex)}`"
+          >
+            <Slideinner :slide="slide"></Slideinner>
+          </template>
+        </slide>
+      </carousel-3d>
+    </div>
+    <div v-else class="grid">
+      <div v-for="(slide, i) in pictures" :index="i" :key="i" class="grid-item">
+        <a :href="slide.link" class="link">
+          <img :src="slide.image" class="grid__image" :alt="slide.image" />
+
+          <div class="grid__description">
+            <span class="countryName">{{ slide.text }}</span>
+            <div v-if="slide.price > 0">
+              <span class="textcolor">ab</span>
+              <span class="pricecolor">€{{ slide.price }}</span>
+            </div>
           </div></a
         >
       </div>
     </div>
-    <button @click="left" class="button button-left">
-      <img src="../assets/img/left.svg" alt="left" />
-    </button>
-    <button @click="right" class="button button-right">
-      <img src="../assets/img/right.svg" alt="right" />
-    </button>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
+import { Carousel3d, Slide } from "vue-carousel-3d";
 import { traveloptions } from "../travel-options";
+import Slideinner from "./Slideinner.vue";
 
-@Component
+Vue.use(Carousel3d);
+
+@Component({
+  components: {
+    Slide,
+    Carousel3d,
+    Slideinner,
+  },
+})
 export default class Slider extends Vue {
-  @Prop({ type: Array, required: true }) readonly traveloptions!: {
-    text: string;
-    price: number;
-    image: string;
-    link: string;
-  }[];
+  pictures: { text: string; price: number; image: string; link: string }[] = [
+    ...traveloptions,
+  ];
+  isMobile = false;
 
-  pictures = [...traveloptions];
+  setIsMobile() {
+    console.log("setIsMobile() wird ausgeführt" + window.innerWidth);
+    this.isMobile = window.innerWidth < 769;
+  }
+  mounted() {
+    this.setIsMobile();
+    window.addEventListener("resize", this.setIsMobile);
+  }
 
-  left = () => {
-    let tmp = this.pictures.shift();
-    this.pictures.push(tmp);
-    this.pictures.forEach((option) => console.log(option.text));
-    this.$forceUpdate();
-  };
-  right = () => {
-    let tmp = this.pictures.pop();
-    this.pictures.unshift(tmp);
-  };
+  beforeDestroy() {
+    window.removeEventListener("resize", this.setIsMobile);
+  }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "src/assets/global.scss";
 @import "src/assets/colors.scss";
+.carousel-3d-container {
+  overflow: unset !important;
+}
+
+.carousel-3d-controls .next {
+  z-index: 10;
+}
+
 .slider {
-  display: flex;
-  overflow-y: hidden;
-  position: relative;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  &__link {
-    text-decoration: none;
-  }
+  height: 100vh;
 
   &__wrapper {
-    border: 2px solid transparent;
-    box-shadow: -2px 2px 0 $border-color;
-    border-radius: 25px;
-    margin: 0 19px;
+    border: 1px solid transparent;
+    box-shadow: -2pt 2pt $border-color;
+    border-radius: 10px;
+    background: $accent-1;
     height: 222px;
+    width: 287px;
+  }
 
-    &:first-child {
-      margin-left: 0;
-    }
-    img {
-      border: 1px solid $border-color;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 23px;
+    width: 287px;
+    padding-left: 1.4rem;
+
+    &__image {
       width: 287px;
       height: 177px;
+      border: 1px solid transparent;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
     }
-  }
 
-  &__description {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-  }
-  &__text {
-    color: $text-color1;
-    font-family: Open Sans;
-    font-weight: bold;
-  }
+    &__description {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 1rem;
 
-  &__price {
-    color: $text-color3;
-    font-family: Open Sans;
-    font-weight: bold;
-  }
-}
-.button {
-  position: absolute;
-  top: 50%;
-  z-index: 10;
-  background: transparent;
-  border-radius: 5px;
-  border: 1px solid transparent;
-  &-left {
-    left: 0;
-  }
-  &-right {
-    right: 0;
+      .countryName {
+        color: $text-color1;
+        font-family: "Open Sans";
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .pricecolor {
+        color: $text-color3;
+        font-size: 1rem;
+        font-family: "Open Sans";
+        font-weight: 600;
+      }
+
+      .textcolor {
+        color: $text-color3;
+        font-size: 0.75rem;
+        font-family: Open Sans;
+        margin-right: 10px;
+      }
+    }
+
+    .grid-item {
+      border: 1px solid transparent;
+      box-shadow: -2pt 2pt $border-color;
+      border-radius: 10px;
+      background: $accent-1;
+
+      .link {
+        text-decoration: none;
+      }
+    }
   }
 }
 </style>
