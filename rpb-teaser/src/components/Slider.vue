@@ -86,10 +86,6 @@ export default class Slider extends Vue {
   overflow: unset !important;
 }
 
-.carousel-3d-controls .next {
-  z-index: 10;
-}
-
 .slider {
   height: 100vh;
 
