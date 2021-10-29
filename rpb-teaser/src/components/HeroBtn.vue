@@ -40,6 +40,7 @@ export default {
   position: relative;
   z-index: 2;
   border-radius: 4rem;
+  margin-left: -0.9rem;
 
   span {
     position: relative;
